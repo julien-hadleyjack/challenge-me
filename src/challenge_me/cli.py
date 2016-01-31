@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 Module that contains the command line app.
 
@@ -16,8 +19,65 @@ Why does this file exist, and why not put this in __main__?
 """
 import click
 
+from challenge_me import challenge_me
 
-@click.command()
-@click.argument('names', nargs=-1)
-def main(names):
-    click.echo(repr(names))
+
+@click.group()
+def main():
+    pass
+
+
+@main.command()
+@click.argument('category')
+def start(category):
+    """
+    Starting a challenge.
+
+    Args:
+        category:
+    """
+    click.echo('Starting a challenge.')
+    challenge_me.create_file(category, 1)
+
+
+@main.command()
+@click.argument('category')
+def verify(category):
+    """
+    Verifying a challenge.
+    :param category:
+    """
+    click.echo('Verifying a challenge.')
+
+    success, input_text, result, error, expected = challenge_me.verify(category)
+    if success:
+        click.echo('Success.')
+    elif error:
+        click.echo('Failure.')
+        click.echo('Error: {}'.format(error))
+    else:
+        click.echo('Failure.')
+        click.echo('Input: {}'.format(input_text))
+        click.echo('Result: {}'.format(result))
+        click.echo('Expected: {}'.format(expected))
+
+
+@main.command()
+def skip():
+    """
+    Skipping a challenge.
+    """
+    click.echo('Skipping a challenge.')
+
+
+@main.command()
+def test():
+    """
+    Testing functionality
+    """
+    click.echo('Testing.')
+    challenge_me.verify("string")
+
+
+if __name__ == "__main__":
+    main()

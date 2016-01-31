@@ -65,6 +65,8 @@ setup(
     ],
     install_requires=[
         'click',
+        'PyYAML',
+        "sarge"
     ],
     extras_require={
         # eg:

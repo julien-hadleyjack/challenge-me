@@ -1,0 +1,27 @@
+---
+title: Characters in string unique?
+source: Cracking The Coding Interview by Gayle Laakman
+description: >
+  Implement an algorithm to determine if a string has all unique characters.
+  What if you can not use additional data structures?
+tests:
+  - {input: text, output: 0}
+  - {input: tt, output: 0}
+  - {input: tex, output: 1}
+  - {input: "", output: 1}
+  - {input: abcdefghijklmnopqrstuvwxy0123456789, output: 1}
+---
+name: Reverse c-style string
+source: Cracking The Coding Interview by Gayle Laakman
+description: >
+  Write code to reverse a C-Style String (C-String means that “abcd” is
+  represented as five characters, including the null character).
+tests:
+  - {input: text\0, output: txet\0}
+  - {input: tt\0, output: tt\0}
+  - {input: asdasdasd\0, output: dsadsadsa\0}
+  - {input: \0, output: \0}
+---
+name: The Set of Gauntlets 'Paurnimmen'
+description: >
+  A set of handgear, freezing with unnatural cold.
