@@ -2,7 +2,7 @@
 
 title: Set bit range
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   You are given two 32-bit numbers, N and M, and two bit positions, i and j.
   Write a method to set all bits between i and j in N equal to M
   (e g , M becomes a substring of N located at i and starting at j).
@@ -13,7 +13,7 @@ tests:
 
 title: Decimal to binary
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Given a (decimal - e.g. 372) number that is passed in as a string, print the binary representation.
   If the number can not be represented accurately in binary, print “ERROR”
 tests:
@@ -29,7 +29,7 @@ tests:
 
 title: Same 1 bits
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Given an integer, print the next smallest and next largest number that have the same number of 1 bits
   in their binary representation
 
@@ -45,7 +45,7 @@ tests:
 
 title: Swap bits
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Write a program to swap odd and even bits in an integer with as few instructions as possible
   (e g , bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped, etc)
 
@@ -72,7 +72,7 @@ description: Write a function that takes in two binary strings and returns their
 
 title: Swap bits at position
 source: Elements of Programming Interviews by Aziz, Lee, Prakash
-description: >
+description: |
   A 64-bit integer can be viewed as an array of 64 bits, with the bit at index 0 corresponding to the least significant
   bit, and the bit at index 63 corresponding to the most significant bit Implement code that takes as input a 64-bit
   integer x and swaps the bits at indices i and j.

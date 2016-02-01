@@ -66,7 +66,8 @@ setup(
     install_requires=[
         'click',
         'PyYAML',
-        "sarge"
+        'sarge',
+        "jinja2"
     ],
     extras_require={
         # eg:

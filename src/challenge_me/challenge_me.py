@@ -6,28 +6,31 @@ import os
 import re
 import sarge
 import yaml
+from jinja2 import PackageLoader, Environment
 
 from . import PACKAGE_PATH
 
 
 def create_file(category, number, overwrite=False):
-    if not os.path.isdir(category):
-        os.makedirs(category)
 
-    with open(os.path.join(PACKAGE_PATH, "templates", "python.template"), "r") as input_file:
-        template = input_file.read()
-
-    data = get_problem(number)
-    template = template.format(**data)
-
-    filename = "{:03d}.py".format(number)
+    filename = "{}_{:03d}.py".format(category, number)
     path = os.path.join(category, filename)
 
     if os.path.exists(path) and not overwrite:
         print("File already exists.")
+        # return
+
+    if not os.path.isdir(category):
+        os.makedirs(category)
+
+    problem = get_problem(category, number)
+
+    env = Environment(loader=PackageLoader('challenge_me', 'templates'))
+    template = env.get_template("python.template")
+    result = template.render(problem=problem, category=category, filename=filename)
 
     with open(path, "w") as output_file:
-        output_file.write(template)
+        output_file.write(result)
 
 
 def verify(category, number=None):
@@ -39,7 +42,7 @@ def verify(category, number=None):
 
     os.chmod(filename, 0o755)
 
-    problem = get_problem(problem_number)
+    problem = get_problem(category, problem_number)
     for test in problem["tests"]:
         input_text = str(test["input"])
         output_text = str(test["output"])
@@ -66,8 +69,8 @@ def get_current_problem(category):
     return int(number.group(1)), filename
 
 
-def get_problem(number):
-    with open(os.path.join(PACKAGE_PATH, "challenges", "string.yaml"), "r") as challenge_file:
+def get_problem(category, number):
+    with open(os.path.join(PACKAGE_PATH, "challenges", category + ".yaml"), "r") as challenge_file:
         challenges = list(yaml.load_all(challenge_file))
 
     return challenges[number - 1]

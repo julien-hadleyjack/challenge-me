@@ -2,7 +2,7 @@
 
 title: Merge two sorted arrays
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   You are given two sorted arrays, A and B, and A has a large enough buffer at the end to hold B.
   Write a method to merge B into A in sorted order.
 
@@ -22,7 +22,7 @@ description: Write a method to sort an array of strings so that all the anagrams
 
 title: Merge two arrays
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   A circus is designing a tower routine consisting of people standing atop one another’s shoulders.
   For practical and aesthetic reasons, each person must be both shorter and lighter than the person below him or her.
   Given the heights and weights of each person in the circus, write a method to compute the largest possible number of

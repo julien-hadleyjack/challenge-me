@@ -2,7 +2,7 @@
 
 title: Characters in string unique?
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Implement an algorithm to determine if a string has all unique characters.
   What if you can not use additional data structures?
 tests:
@@ -16,7 +16,7 @@ tests:
 
 title: Reverse c-style string
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Write code to reverse a C-Style String (C-String means that “abcd” is
   represented as five characters, including the null character).
 tests:
@@ -29,7 +29,7 @@ tests:
 
 title: Deduplicate string
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer.
 
   NOTE: One or two additional variables are fine. An extra copy of the array is not allowd.
@@ -69,7 +69,7 @@ tests:
 
 title: One isSubstring call
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Assume you have a method isSubstring which checks if one word is a substring of another.
   Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring
   (i e , “waterbottle” is a rotation of “erbottlewat”)
@@ -112,7 +112,7 @@ description: Print all permutations of a word.
 
 title: Find missing number in string
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   You're given a string with numbers from 1 to 250 in random order
   but missing one number. Find the missing number.
 
@@ -120,7 +120,7 @@ description: >
 
 title: Human readable numbers
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   Write a program that can print out the text form of the numbers from 1 to 1000.
   For example, 20 prints out as "twenty".
 
@@ -134,7 +134,7 @@ description: Write a function that switches the positions of every two words.
 
 title: Oral description for numbers
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   Given a number as a string, write an algorithm to map to its oral description.
   For example, "1" -> "11" (there is one one). "21" -> "1211" (there is one two and one one).
 
@@ -154,7 +154,7 @@ description: Find the number of unique strings in a collection of strings.
 
 title: Longest unique substring
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   Given a string, find the length of the longest substring without repeating characters.
   For example, the longest substring without repeating letters for “abcabcbb” is “abc”,
   which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.

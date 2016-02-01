@@ -2,7 +2,23 @@
 # -*- coding: utf-8 -*-
 
 """
-{description}
+# {{ problem.title }}
+
+{{ problem.description|trim|wordwrap }}
+{% if problem.source %}
+## Source
+
+{{ problem.source|wordwrap }}
+{% endif %}
+{%- if problem.tests %}
+## Example
+
+Input:
+{{ problem.tests[0].input }}
+
+Output:
+{{ problem.tests[0].output }}
+{% endif -%}
 """
 
 import sys

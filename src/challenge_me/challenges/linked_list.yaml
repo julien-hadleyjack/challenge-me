@@ -2,7 +2,7 @@
 
 title: Remove duplicates from linked list
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Write code to remove duplicates from an unsorted linked list.
   How would you solve this problem if a temporary buffer is not allowed?
 tests:
@@ -25,7 +25,7 @@ tests:
 
 title: Delete middle node
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Implement an algorithm to delete a node in the middle of a single linked list, given only access to that node.
 tests:
   - {input: 1 2 3 4 5, output: 1 2 4 5}
@@ -37,7 +37,7 @@ tests:
 
 title: Add two linked lists
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   You have two numbers represented by a linked list, where each node contains a single digit.
   The digits are stored in reverse order, such that the 1’s digit is at the head of the list.
   Write a function that adds the two numbers and returns the sum as a linked list.
@@ -52,7 +52,7 @@ tests:
 
 title: Circular linked list
 source: Cracking The Coding Interview by Gayle Laakman
-description: >
+description: |
   Given a circular linked list, implement an algorithm which returns node at the beginning of the loop
 
   Definition Circular linked list:
@@ -68,7 +68,7 @@ tests:
 
 title: Find intersecting node
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   Two singly linked-lists intersect at a node and merge into a single linked-list.
   The size of each is unknown and the number of nodes prior to the intersection node
   can vary in each list. Write a function to find the intersecting node.
@@ -103,7 +103,7 @@ description: Write a function to determine if a singly linked list is a palindro
 
 title: Palindrome in linked list
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   Write code to partition a linked list around a value x,
   such that all nodes less than x come before all nodes greater than or equal to x.
 
@@ -111,7 +111,7 @@ description: >
 
 title: Separate odd and even numbers
 source: https://github.com/kylesteiner/coding-challenges
-description: >
+description: |
   Given a linked list of integers, split the list into two lists such that one list
   contains only odd numbers and the other contains only even numbers.
 
