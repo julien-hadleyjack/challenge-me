@@ -45,7 +45,9 @@ def start(category):
 def verify(category):
     """
     Verifying a challenge.
-    :param category:
+
+    Args:
+        category:
     """
     click.echo('Verifying a challenge.')
 
@@ -63,11 +65,17 @@ def verify(category):
 
 
 @main.command()
-def skip():
+@click.argument('category')
+def skip(category):
     """
     Skipping a challenge.
+
+    Args:
+        category:
     """
     click.echo('Skipping a challenge.')
+    number, filename = challenge_me.get_current_problem(category)
+    challenge_me.create_file(category, number + 1)
 
 
 @main.command()
@@ -76,7 +84,7 @@ def test():
     Testing functionality
     """
     click.echo('Testing.')
-    challenge_me.verify("string")
+    challenge_me.validate_challenges()
 
 
 if __name__ == "__main__":

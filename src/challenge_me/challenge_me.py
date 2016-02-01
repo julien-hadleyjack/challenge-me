@@ -55,6 +55,7 @@ def get_current_problem(category):
     default = 1, os.path.join(category, "001.py")
     files = glob.glob(category + '/*[0-9][0-9][0-9]*.py')
     if not files:
+        create_file(category, 1)
         return default
 
     filename = max(files)
@@ -70,3 +71,10 @@ def get_problem(number):
         challenges = list(yaml.load_all(challenge_file))
 
     return challenges[number - 1]
+
+
+def validate_challenges():
+    for entry in glob.glob(PACKAGE_PATH + '/challenges/*.yaml'):
+        print(entry)
+        with open(entry, "r") as file:
+            list(yaml.load_all(file))

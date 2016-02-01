@@ -1,4 +1,5 @@
 ---
+
 title: Characters in string unique?
 source: Cracking The Coding Interview by Gayle Laakman
 description: >
@@ -10,8 +11,10 @@ tests:
   - {input: tex, output: 1}
   - {input: "", output: 1}
   - {input: abcdefghijklmnopqrstuvwxy0123456789, output: 1}
+
 ---
-name: Reverse c-style string
+
+title: Reverse c-style string
 source: Cracking The Coding Interview by Gayle Laakman
 description: >
   Write code to reverse a C-Style String (C-String means that “abcd” is
@@ -21,7 +24,139 @@ tests:
   - {input: tt\0, output: tt\0}
   - {input: asdasdasd\0, output: dsadsadsa\0}
   - {input: \0, output: \0}
+
 ---
-name: The Set of Gauntlets 'Paurnimmen'
+
+title: Deduplicate string
+source: Cracking The Coding Interview by Gayle Laakman
 description: >
-  A set of handgear, freezing with unnatural cold.
+  Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer.
+
+  NOTE: One or two additional variables are fine. An extra copy of the array is not allowd.
+tests:
+  - {input: text, output: tex}
+  - {input: aa, output: a}
+  - {input: "", output: ""}
+  - {input: asdasdasd, output: asd}
+  - {input: thisissometext, output: thisometx}
+  - {input: abcdefghijklmnopqrstuvwxy0123456789a, output: abcdefghijklmnopqrstuvwxy0123456789}
+
+---
+
+title: Anagram checker
+source: Cracking The Coding Interview by Gayle Laakman
+description: Write a method to decide if two strings are anagrams or not.
+tests:
+  - {input: Dictionary\nIndicatory, output: 1}
+  - {input: Elvis\nLives, output: 1}
+  - {input: Postmaster\nStamp Store, output: 1}
+  - {input: The Great New York Rapid Transit Tunnel\nThe Great New York Rapid Transit Tunnel, output: 1}
+  - {input: \ntext, output: 0}
+  - {input: some text\nmore text, output: 0}
+
+---
+
+title: Replace spaces
+source: Cracking The Coding Interview by Gayle Laakman
+description: Write a method to replace all spaces in a string with ‘%20’.
+tests:
+  - {input: here is some text, output: here%20is%20some%20text}
+  - {input: "", output: ""}
+  - {input: thistexthasnospaces, output: thistexthasnospaces}
+  - {input: "     ", output: "%20%20%20%20%20"}
+
+---
+
+title: One isSubstring call
+source: Cracking The Coding Interview by Gayle Laakman
+description: >
+  Assume you have a method isSubstring which checks if one word is a substring of another.
+  Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring
+  (i e , “waterbottle” is a rotation of “erbottlewat”)
+tests:
+  - {input: waterbottle erbottlewat, output: 1}
+  - {input: assumeit sumeitas, output: 1}
+  - {input: isSubstring stringisSub, output: 1}
+  - {input: text text, output: 1}
+  - {input: text1 text2, output: 0}
+  - {input: text1 text, output: 0}
+  - {input: text text2, output: 0}
+  - {input: text , output: 0}
+
+---
+
+---
+
+title: Common suffixes
+source: https://github.com/kylesteiner/coding-challenges
+description: Given a list of strings, produce a list of the longest common suffixes.
+
+---
+
+title: Reverse words
+source: https://github.com/kylesteiner/coding-challenges
+description: Reverse all the words in a given sentence.
+
+---
+
+title: Reverse word order
+description: Reverse the word order in a given sentence.
+
+---
+
+title: Word permutations
+source: https://github.com/kylesteiner/coding-challenges
+description: Print all permutations of a word.
+
+---
+
+title: Find missing number in string
+source: https://github.com/kylesteiner/coding-challenges
+description: >
+  You're given a string with numbers from 1 to 250 in random order
+  but missing one number. Find the missing number.
+
+---
+
+title: Human readable numbers
+source: https://github.com/kylesteiner/coding-challenges
+description: >
+  Write a program that can print out the text form of the numbers from 1 to 1000.
+  For example, 20 prints out as "twenty".
+
+---
+
+title: Switch two words
+source: https://github.com/kylesteiner/coding-challenges
+description: Write a function that switches the positions of every two words.
+
+---
+
+title: Oral description for numbers
+source: https://github.com/kylesteiner/coding-challenges
+description: >
+  Given a number as a string, write an algorithm to map to its oral description.
+  For example, "1" -> "11" (there is one one). "21" -> "1211" (there is one two and one one).
+
+---
+
+title: Roman numeral to integer
+source: https://github.com/kylesteiner/coding-challenges
+description: Write a function that prints the integer equivalent of a given Roman numeral.
+
+---
+
+title: Unique strings
+source: https://github.com/kylesteiner/coding-challenges
+description: Find the number of unique strings in a collection of strings.
+
+---
+
+title: Longest unique substring
+source: https://github.com/kylesteiner/coding-challenges
+description: >
+  Given a string, find the length of the longest substring without repeating characters.
+  For example, the longest substring without repeating letters for “abcabcbb” is “abc”,
+  which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.
+
+...
