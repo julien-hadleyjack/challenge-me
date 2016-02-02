@@ -13,11 +13,12 @@ Overview
       - | |travis| |appveyor| |requires|
         | |codecov|
         | |scrutinizer| |codacy| |codeclimate|
-    * - package
+
+..  * - package
       - |version| |downloads| |wheel| |versions| |implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/challenge-me/badge/?style=flat
-    :target: https://readthedocs.org/projects/challenge-me
+    :target: https://challenge-me.readthedocs.org/en/latest/
     :alt: Documentation Status
 
 .. |travis| image:: https://travis-ci.org/julien-hadleyjack/challenge-me.svg?branch=master
@@ -36,8 +37,8 @@ Overview
     :alt: Coverage Status
     :target: https://codecov.io/github/julien-hadleyjack/challenge-me
 
-.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat
-    :target: https://www.codacy.com/app/julien-hadleyjack/challenge-me
+.. |codacy| image:: https://img.shields.io/codacy/cfacce47c4b84eb385822e262efab73a.svg?style=flat
+    :target: https://www.codacy.com/app/julien-hadleyjack/challenge-me/dashboard
     :alt: Codacy Code Quality Status
 
 .. |codeclimate| image:: https://codeclimate.com/github/julien-hadleyjack/challenge-me/badges/gpa.svg
@@ -71,9 +72,8 @@ Overview
 
 .. end-badges
 
-A command line tool for running programming challenges.
-
-* Free software: BSD license
+A command line tool for running programming challenges. The current version is unstable and should only be used for
+testing purposes
 
 Installation
 ============

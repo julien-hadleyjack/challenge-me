@@ -29,7 +29,7 @@ def main():
 
 
 @main.command()
-@click.argument('category')
+@click.argument('category', required=False)
 def start(category):
     """
     Starting a challenge.
@@ -38,11 +38,16 @@ def start(category):
         category:
     """
     click.echo('Starting a challenge.')
+
+    if not category:
+        category, number = challenge_me.get_global_problem()
+        click.echo('Problem {} in category {} was selected.'.format(number, category))
+
     challenge_me.create_file(category, 1)
 
 
 @main.command()
-@click.argument('category')
+@click.argument('category', required=False)
 def verify(category):
     """
     Verifying a challenge.
@@ -52,21 +57,25 @@ def verify(category):
     """
     click.echo('Verifying a challenge.')
 
+    if not category:
+        category, number = challenge_me.get_global_problem()
+        click.echo('Problem {} in category {} was selected.'.format(number, category))
+
     success, input_text, result, error, expected = challenge_me.verify(category)
     if success:
         click.echo('Success.')
-    elif error:
-        click.echo('Failure.')
-        click.echo('Error: {}'.format(error))
     else:
         click.echo('Failure.')
         click.echo('Input: {}'.format(input_text))
         click.echo('Result: {}'.format(result))
         click.echo('Expected: {}'.format(expected))
 
+    if error:
+        click.echo('Error: {}'.format(error))
+
 
 @main.command()
-@click.argument('category')
+@click.argument('category', required=False)
 def skip(category):
     """
     Skipping a challenge.
@@ -75,6 +84,11 @@ def skip(category):
         category:
     """
     click.echo('Skipping a challenge.')
+
+    if not category:
+        category, number = challenge_me.get_global_problem()
+        click.echo('Problem {} in category {} was selected.'.format(number, category))
+
     number, filename = challenge_me.get_current_problem(category)
     challenge_me.create_file(category, number + 1)
 

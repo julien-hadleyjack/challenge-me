@@ -24,6 +24,10 @@ def create_file(category, number, overwrite=False):
         os.makedirs(category)
 
     problem = get_problem(category, number)
+    if problem is None:
+        return
+    elif "tests" not in problem:
+        create_file(category, number + 1, overwrite)
 
     env = Environment(loader=PackageLoader('challenge_me', 'templates'))
     template = env.get_template("python.template")
@@ -54,7 +58,7 @@ def verify(category, number=None):
     return True, None, None, None, None
 
 
-def get_current_problem(category):
+def get_current_problem(category=None):
     default = 1, os.path.join(category, "001.py")
     files = glob.glob(category + '/*[0-9][0-9][0-9]*.py')
     if not files:
@@ -73,4 +77,20 @@ def get_problem(category, number):
     with open(os.path.join(PACKAGE_PATH, "challenges", category + ".yaml"), "r") as challenge_file:
         challenges = list(yaml.load_all(challenge_file))
 
-    return challenges[number - 1]
+    return challenges[number - 1] if number - 1 < len(challenges) else None
+
+
+def get_global_problem():
+    file_path = os.path.join(PACKAGE_PATH, "challenges")
+    for filename in glob.glob(file_path + '/*.yaml'):
+        category = re.search('.*/(.+)\.yaml', filename)
+        if not category:
+            continue
+        category = category.group(1)
+
+        with open(filename, "r") as challenge_file:
+            number, _ = get_current_problem(category)
+            if number <= len(list(yaml.load_all(challenge_file))):
+                return category, number
+
+    return None, -1
