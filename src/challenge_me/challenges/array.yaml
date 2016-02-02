@@ -121,5 +121,9 @@ source: https://github.com/kylesteiner/coding-challenges
 description: |
   Given an array of stock prices, where the increasing indexes of the array signify increase in time,
   return a good time to buy and sell such that profit is maximized.
+  - {input: 5 10 4 6 7, output: 1 2}
+  - {input: 5 10 4 6 12, output: 3 5}
+  - {input: 1 2 3 4 5, output: 1 5}
+  - {input: 2 7 1 8 2 8 4 5 9 0 4 5, output: 3 9}
 
 ...
