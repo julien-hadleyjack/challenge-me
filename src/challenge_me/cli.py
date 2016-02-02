@@ -19,10 +19,11 @@ Why does this file exist, and why not put this in __main__?
 """
 import click
 
-from challenge_me import challenge_me
+from . import challenge_me, __version__
 
 
 @click.group()
+@click.version_option(prog_name="challenge-me", version=__version__)
 def main():
     pass
 
@@ -84,7 +85,6 @@ def test():
     Testing functionality
     """
     click.echo('Testing.')
-    challenge_me.validate_challenges()
 
 
 if __name__ == "__main__":

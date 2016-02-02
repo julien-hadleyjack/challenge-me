@@ -74,10 +74,3 @@ def get_problem(category, number):
         challenges = list(yaml.load_all(challenge_file))
 
     return challenges[number - 1]
-
-
-def validate_challenges():
-    for entry in glob.glob(PACKAGE_PATH + '/challenges/*.yaml'):
-        print(entry)
-        with open(entry, "r") as file:
-            list(yaml.load_all(file))

@@ -14,7 +14,7 @@ Overview
         | |codecov|
         | |scrutinizer| |codacy| |codeclimate|
     * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+      - |version| |downloads| |wheel| |versions| |implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/challenge-me/badge/?style=flat
     :target: https://readthedocs.org/projects/challenge-me
@@ -56,11 +56,11 @@ Overview
     :alt: PyPI Wheel
     :target: https://pypi.python.org/pypi/challenge-me
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/challenge-me.svg?style=flat
+.. |versions| image:: https://img.shields.io/pypi/pyversions/challenge-me.svg?style=flat
     :alt: Supported versions
     :target: https://pypi.python.org/pypi/challenge-me
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/challenge-me.svg?style=flat
+.. |implementations| image:: https://img.shields.io/pypi/implementation/challenge-me.svg?style=flat
     :alt: Supported implementations
     :target: https://pypi.python.org/pypi/challenge-me
 
@@ -110,3 +110,4 @@ Note, to combine the coverage data from all the tox environments run:
       - ::
 
             PYTEST_ADDOPTS=--cov-append tox
+
