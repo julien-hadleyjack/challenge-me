@@ -41,6 +41,18 @@ tests:
 
 ---
 
+title: Common suffixes
+source: https://github.com/kylesteiner/coding-challenges
+description: Given a list of strings, produce a list of the longest common suffixes.
+tests:
+  - {input: ABABCA BABCA ABCBCA, output: BCA}
+  - {input: alsdfkjfjkdsala fdjskalajfkdsla, output: la}
+  - {input: xabxac abcabxabcd, output: ""}
+  - {input: aabc, output: aabc}
+  - {input: aaaaaaaaa aaaaaaa aaaa, output: aaaa}
+
+---
+
 title: Longest common substring
 source: ["https://github.com/kylesteiner/coding-challenges", "http://www.spoj.com/problems/LCS/"]
 description: Given an array of words, find the longest common substring between two words in the array.
@@ -58,9 +70,15 @@ tests:
 
 title: Sum equal zero in array
 source: https://github.com/kylesteiner/coding-challenges
-description: Given an array of integers, find whether there is a subsequence that sums up to 0.
+description: |
+  Given an array of integers, find whether there is a subsequence that sums up to 0.
+
+  Return the elements of the subsequence. If no subsequence can be found return nothing.
 tests:
   - {input: 1 2 -3 1, output: 1 2 -3}
+  - {input: 4 2 -3 1 6, output: 4 2 -3}
+  - {input: 4 2 0 1 6, output: 0}
+  - {input: -3 2 3 1 6, output: ""}
 
 ---
 
@@ -83,6 +101,7 @@ source: https://github.com/kylesteiner/coding-challenges
 description: Given an integer array, find the maximum sum of consecutive elements.
 tests:
   - {input: −2 1 −3 4 −1 2 1 −5 4, output: 4 −1 2 1}
+  - {input: -2 -3 4 -1 -2 1 5 -3, output: 4 -1 -2 1 5}
 
 ---
 
@@ -116,6 +135,12 @@ tests:
   - {input: 5 10 4 6 12, output: 3 5}
   - {input: 1 2 3 4 5, output: 1 5}
   - {input: 2 7 1 8 2 8 4 5 9 0 4 5, output: 3 9}
+
+---
+
+title: Unique strings
+source: https://github.com/kylesteiner/coding-challenges
+description: Find the number of unique strings in a collection of strings.
 
 ---
 
