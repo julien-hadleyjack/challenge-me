@@ -17,6 +17,8 @@ Why does this file exist, and why not put this in __main__?
 
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
+import glob
+
 import click
 
 from . import challenge_me, __version__
@@ -30,67 +32,108 @@ def main():
 
 @main.command()
 @click.argument('category', required=False)
-def start(category):
+@click.option('--language', default="python", required=False)
+def start(category, language):
     """
     Starting a challenge.
 
     Args:
+        language:
         category:
     """
-    click.echo('Starting a challenge.')
 
     if not category:
-        category, number = challenge_me.get_global_problem()
-        click.echo('Problem {} in category {} was selected.'.format(number, category))
+        category, number, filename = challenge_me.get_current_problem()
+        if not category:
+            click.echo("Couldn't find a category with open challenges. Stopping.")
+            return
 
-    challenge_me.create_file(category, 1)
+        if number != 1:
+            click.echo("File(s) already exist for this category. Skipped creating new one.")
+            return
+
+    challenge = challenge_me.get_problem_with_test(category, 1)
+    if challenge is None:
+        click.echo("Couldn't find a challenge to use. Stopping.")
+        return
+
+    click.echo('Starting first challenge for category {}.'.format(category))
+    try:
+        challenge_me.create_file(challenge, language)
+    except ValueError as e:
+        click.echo(str(e) + " Stopping.")
 
 
 @main.command()
 @click.argument('category', required=False)
-def verify(category):
+@click.argument('number', required=False)
+@click.option('--language', default="python", required=False)
+def verify(category, number, language):
     """
     Verifying a challenge.
 
     Args:
+        language:
+        number:
         category:
     """
-    click.echo('Verifying a challenge.')
 
-    if not category:
-        category, number = challenge_me.get_global_problem()
-        click.echo('Problem {} in category {} was selected.'.format(number, category))
+    if not category or not number:
+        new_category, new_number, _ = challenge_me.get_current_problem()
 
-    success, input_text, result, error, expected = challenge_me.verify(category)
-    if success:
-        click.echo('Success.')
+        if not category:
+            category = new_category
+
+        if not number:
+            number = new_number
+
+    search = glob.glob(category + "/*{:03d}*.py".format(number))
+    if not search:
+        click.echo("Couldn't find file to verify")
+        return 1, None
     else:
-        click.echo('Failure.')
-        click.echo('Input: {}'.format(input_text))
-        click.echo('Result: {}'.format(result))
-        click.echo('Expected: {}'.format(expected))
+        filename = search[0]
 
-    if error:
-        click.echo('Error: {}'.format(error))
+    challenge = challenge_me.get_problem(category, number)
+
+    click.echo('Verifying challenge {} for category {}.'.format(number, category))
+    success, input_text, output_text, command = challenge_me.verify(challenge, filename)
+    if success:
+        click.secho("Success.", fg='green')
+        click.echo("Creating file for next challenge.")
+        new_challenge = challenge_me.get_problem_with_test(category, number + 1)
+        challenge_me.create_file(new_challenge, language)
+
+    else:
+        click.secho('Failure.', fg='red')
+        click.echo('Input: {}'.format(input_text))
+        click.echo('Result: {}'.format(command.stdout.text.strip()))
+        click.echo('Expected: {}'.format(output_text.strip()))
+
+    if command.stderr.text:
+        click.echo('Error: {}'.format(command.stderr.text))
 
 
 @main.command()
 @click.argument('category', required=False)
-def skip(category):
+@click.option('--language', default="python", required=False)
+def skip(category, language):
     """
     Skipping a challenge.
 
     Args:
+        language:
         category:
     """
     click.echo('Skipping a challenge.')
 
     if not category:
-        category, number = challenge_me.get_global_problem()
+        category, number = challenge_me.get_current_problem()
         click.echo('Problem {} in category {} was selected.'.format(number, category))
 
-    number, filename = challenge_me.get_current_problem(category)
-    challenge_me.create_file(category, number + 1)
+    number, filename = challenge_me.get_current_problem_in_category(category)
+    new_challenge = challenge_me.get_problem_with_test(category, number + 1)
+    challenge_me.create_file(new_challenge, language)
 
 
 @main.command()

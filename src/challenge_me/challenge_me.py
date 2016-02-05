@@ -11,76 +11,75 @@ from jinja2 import PackageLoader, Environment
 from . import PACKAGE_PATH
 
 
-def create_file(category, number, overwrite=False):
+FILENAME_TEMPLATE = {
+    "python": "{category}_{number:03d}.py"
+}
 
-    filename = "{}_{:03d}.py".format(category, number)
-    path = os.path.join(category, filename)
 
-    if os.path.exists(path) and not overwrite:
-        print("File already exists.")
-        # return
+def create_file(problem, language, overwrite=False):
+    category = problem["category"]
+    number = problem["number"]
+
+    file_name = FILENAME_TEMPLATE.get(language).format(category=category, number=number)
+    file_path = os.path.join(category, file_name)
+
+    if os.path.exists(file_path) and not overwrite:
+        raise ValueError("A file for this problem was already created.")
 
     if not os.path.isdir(category):
         os.makedirs(category)
 
-    problem = get_problem(category, number)
-    if problem is None:
-        return
-    elif "tests" not in problem:
-        create_file(category, number + 1, overwrite)
-
     env = Environment(loader=PackageLoader('challenge_me', 'templates'))
-    template = env.get_template("python.template")
-    result = template.render(problem=problem, category=category, filename=filename)
+    template = env.get_template(language + ".template")
+    result = template.render(problem=problem, category=category, filename=file_name)
 
-    with open(path, "w") as output_file:
+    with open(file_path, "w") as output_file:
         output_file.write(result)
 
 
-def verify(category, number=None):
-    if not number:
-        problem_number, filename = get_current_problem(category)
-    else:
-        problem_number = number
-        filename = os.path.join(category, "{:03d}.py".format(number))
+def verify(problem, filename):
 
     os.chmod(filename, 0o755)
 
-    problem = get_problem(category, problem_number)
     for test in problem["tests"]:
         input_text = str(test["input"])
         output_text = str(test["output"])
         command = sarge.capture_both(filename + " " + input_text)
         if command.stdout.text.strip() != output_text.strip():
-            return False, input_text, command.stdout.text.strip(), command.stderr.text.strip(), output_text.strip()
+            return False, input_text, output_text, command
 
-    create_file(category, problem_number + 1)
-    return True, None, None, None, None
+    # create_file(category, problem_number + 1)
+    return True, None, None, None
 
 
-def get_current_problem(category=None):
-    default = 1, os.path.join(category, "001.py")
-    files = glob.glob(category + '/*[0-9][0-9][0-9]*.py')
+def get_current_problem_in_category(category=None):
+    files = glob.glob(category + '/*[0-9][0-9][0-9]*.*')
     if not files:
-        create_file(category, 1)
-        return default
+        return 1, None
 
     filename = max(files)
     number = re.search('.*(\d{3}).*', filename)
     if not number:
-        return default
+        return 1, None
 
     return int(number.group(1)), filename
 
 
 def get_problem(category, number):
-    with open(os.path.join(PACKAGE_PATH, "challenges", category + ".yaml"), "r") as challenge_file:
+    file_name = os.path.join(PACKAGE_PATH, "challenges", category + ".yaml")
+    with open(file_name, "r") as challenge_file:
         challenges = list(yaml.load_all(challenge_file))
 
-    return challenges[number - 1] if number - 1 < len(challenges) else None
+    if number - 1 < len(challenges):
+        challenge = challenges[number - 1]
+        challenge["category"] = category
+        challenge["number"] = number
+        return challenge
+    else:
+        return None
 
 
-def get_global_problem():
+def get_current_problem():
     file_path = os.path.join(PACKAGE_PATH, "challenges")
     for filename in glob.glob(file_path + '/*.yaml'):
         category = re.search('.*/(.+)\.yaml', filename)
@@ -89,8 +88,19 @@ def get_global_problem():
         category = category.group(1)
 
         with open(filename, "r") as challenge_file:
-            number, _ = get_current_problem(category)
-            if number <= len(list(yaml.load_all(challenge_file))):
-                return category, number
+            number, filename = get_current_problem_in_category(category)
 
-    return None, -1
+            # if "tests" not in problem:
+            # create_file(category, number + 1, overwrite)
+            if number <= len(list(yaml.load_all(challenge_file))):
+                return category, number, filename
+
+    return None, -1, None
+
+
+def get_problem_with_test(category, number):
+    challenge = get_problem(category, number)
+    while challenge is not None and "tests" not in challenge:
+        number += 1
+        challenge = get_problem(category, number)
+    return challenge

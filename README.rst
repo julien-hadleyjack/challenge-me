@@ -17,7 +17,7 @@ Overview
 ..  * - package
       - |version| |downloads| |wheel| |versions| |implementations|
 
-.. |docs| image:: https://readthedocs.org/projects/challenge-me/badge/?style=flat
+.. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat
     :target: https://challenge-me.readthedocs.org/en/latest/
     :alt: Documentation Status
 
