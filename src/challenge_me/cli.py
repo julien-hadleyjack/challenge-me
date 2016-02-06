@@ -43,7 +43,7 @@ def start(category, language):
     """
 
     if not category:
-        category, number, filename = challenge_me.get_current_problem()
+        category, number, filename = challenge_me.get_current_challenge()
         if not category:
             click.echo("Couldn't find a category with open challenges. Stopping.")
             return
@@ -52,7 +52,7 @@ def start(category, language):
             click.echo("File(s) already exist for this category. Skipped creating new one.")
             return
 
-    challenge = challenge_me.get_problem_with_test(category, 1)
+    challenge = challenge_me.get_challenge_with_test(category, 1)
     if challenge is None:
         click.echo("Couldn't find a challenge to use. Stopping.")
         return
@@ -79,7 +79,7 @@ def verify(category, number, language):
     """
 
     if not category or not number:
-        new_category, new_number, _ = challenge_me.get_current_problem()
+        new_category, new_number, _ = challenge_me.get_current_challenge()
 
         if not category:
             category = new_category
@@ -94,14 +94,14 @@ def verify(category, number, language):
     else:
         filename = search[0]
 
-    challenge = challenge_me.get_problem(category, number)
+    challenge = challenge_me.get_challenge(category, number)
 
     click.echo('Verifying challenge {} for category {}.'.format(number, category))
     success, input_text, output_text, command = challenge_me.verify(challenge, filename)
     if success:
         click.secho("Success.", fg='green')
         click.echo("Creating file for next challenge.")
-        new_challenge = challenge_me.get_problem_with_test(category, number + 1)
+        new_challenge = challenge_me.get_challenge_with_test(category, number + 1)
         challenge_me.create_file(new_challenge, language)
 
     else:
@@ -128,11 +128,11 @@ def skip(category, language):
     click.echo('Skipping a challenge.')
 
     if not category:
-        category, number = challenge_me.get_current_problem()
+        category, number = challenge_me.get_current_challenge()
         click.echo('Problem {} in category {} was selected.'.format(number, category))
 
-    number, filename = challenge_me.get_current_problem_in_category(category)
-    new_challenge = challenge_me.get_problem_with_test(category, number + 1)
+    number, filename = challenge_me.get_current_attempt_in_category(category)
+    new_challenge = challenge_me.get_challenge_with_test(category, number + 1)
     challenge_me.create_file(new_challenge, language)
 
 

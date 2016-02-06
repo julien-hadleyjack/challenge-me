@@ -2,22 +2,22 @@
 # -*- coding: utf-8 -*-
 
 """
-# {{ problem.title }}
+# {{ challenge.title }}
 
-{{ problem.description|trim|wordwrap }}
-{% if problem.source %}
+{{ challenge.description|trim|wordwrap }}
+{% if challenge.source %}
 ## Source
 
-{{ problem.source|wordwrap }}
+{{ challenge.source|wordwrap }}
 {% endif %}
-{%- if problem.tests %}
+{%- if challenge.tests %}
 ## Example
 
 Input:
-{{ problem.tests[0].input }}
+{{ challenge.tests[0].input }}
 
 Output:
-{{ problem.tests[0].output }}
+{{ challenge.tests[0].output }}
 {% endif -%}
 """
 

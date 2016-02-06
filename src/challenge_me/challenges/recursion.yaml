@@ -80,12 +80,12 @@ description: |
 
   Return 1 if they match, 0 otherwise.
 tests:
-  - {input: ()()()(), output: 1}
-  - {input: (ok[this]{is}some(text)), output: 1}
-  - {input: ((()[({[]})][])[{}]), output: 1}
-  - {input: )(, output: 0}
-  - {input: (, output: 0}
-  - {input: (((((()))))))), output: 0}
-  - {input: (}{), output: 0}
+  - {input: "()()()()", output: 1}
+  - {input: "(ok[this]{is}some(text))", output: 1}
+  - {input: "((()[({[]})][])[{}])", output: 1}
+  - {input: ")(", output: 0}
+  - {input: "(", output: 0}
+  - {input: "(((((())))))))", output: 0}
+  - {input: "(}{)", output: 0}
 
 ...

@@ -19,6 +19,5 @@ class TestEpisode(unittest.TestCase):
 
     def test_yaml(self):
         for entry in glob.glob(PACKAGE_PATH + '/challenges/*.yaml'):
-            print(entry)
             with open(entry, "r") as file:
                 list(yaml.load_all(file))
