@@ -29,8 +29,8 @@ def main():
     """
     Command line tool for running programming challenges.
 
-    This is still an early version which can have
-    unwanted side effects like accidentally deleting a wrong file. Use with care.
+    Note: This is still an early version which can have unwanted side effects
+    like accidentally deleting a wrong file. Use with care.
     """
     pass
 
@@ -41,7 +41,7 @@ def main():
               help="The programming language that the file should be created in.")
 def start(category, language):
     """
-    Starting a challenge.
+    Start a challenge.
 
     Args:
         language:
@@ -76,7 +76,7 @@ def start(category, language):
 @click.option('--language', default="python", required=False)
 def verify(category, number, language):
     """
-    Verifying a challenge.
+    Verify a challenge and on success start the next one.
 
     Args:
         language:
@@ -115,7 +115,7 @@ def verify(category, number, language):
             click.echo('Result: {}'.format(command.stdout.text.strip()))
             click.echo('Expected: {}'.format(output_text.strip()))
 
-            if command.stderr:
+            if command.stderr and command.stderr.text:
                 click.echo('Error: {}'.format(command.stderr.text))
 
     except ValueError as e:
@@ -127,7 +127,7 @@ def verify(category, number, language):
 @click.option('--language', default="python", required=False)
 def skip(category, language):
     """
-    Skipping a challenge.
+    Skip a challenge.
 
     Args:
         language:
