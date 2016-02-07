@@ -3,43 +3,53 @@ python: '3.5'
 sudo: false
 env:
   global:
-    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
-    - SEGFAULT_SIGNALS=all
+  - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+  - SEGFAULT_SIGNALS=all
   matrix:
-    - TOXENV=check
-    - TOXENV=docs
-
-    - TOXENV=2.7-cover,codecov
-    - TOXENV=2.7-nocov
-    - TOXENV=3.3-cover,codecov
-    - TOXENV=3.3-nocov
-    - TOXENV=3.4-cover,codecov
-    - TOXENV=3.4-nocov
-    - TOXENV=3.5-cover,codecov
-    - TOXENV=3.5-nocov
-    - TOXENV=pypy-cover,codecov
-    - TOXENV=pypy-nocov
+  - TOXENV=check
+  - TOXENV=docs
+  - TOXENV=2.7-cover,codecov
+  - TOXENV=2.7-nocov
+  - TOXENV=3.3-cover,codecov
+  - TOXENV=3.3-nocov
+  - TOXENV=3.4-cover,codecov
+  - TOXENV=3.4-nocov
+  - TOXENV=3.5-cover,codecov
+  - TOXENV=3.5-nocov
+  - TOXENV=pypy-cover,codecov
+  - TOXENV=pypy-nocov
 before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a
+- python --version
+- uname -a
+- lsb_release -a
 install:
-  - pip install tox
-  - virtualenv --version
-  - easy_install --version
-  - pip --version
-  - tox --version
+- pip install tox
+- virtualenv --version
+- easy_install --version
+- pip --version
+- tox --version
 script:
-  - tox -v
+- tox -v
 after_failure:
-  - more .tox/log/* | cat
-  - more .tox/*/log/* | cat
+- more .tox/log/* | cat
+- more .tox/*/log/* | cat
 before_cache:
-  - rm -rf $HOME/.cache/pip/log
+- rm -rf $HOME/.cache/pip/log
 cache:
   directories:
-    - $HOME/.cache/pip
+  - "$HOME/.cache/pip"
 notifications:
   email:
     on_success: never
     on_failure: change
+deploy:
+  provider: pypi
+  user: julien-hadleyjack
+  password:
+    secure: EZR7LWiZQIAt0OXBeMdVFlNXCq6LvvXY/mliZwIcuG3kp8vceYLI6vKHZpuRB5HL2WHvNDYkht+dKP2NyrXIKeev/JJv272d2Go3sOck0e+wrqHL/iJIcOZFfgke1u5hgkhuWymDHpIiyjLKTcFWUSJaY7RGRiEUzY2bn8IqxCaLr+ZyyYhvjdgvma20ClnVBWKiVjLt6EJH47PGZB0wYQu3HxZwEbwbb9wK4n6TvBz+alcZ/RfntLxvagUgy1dHGnfDTV4dBdJV/EjRplly00UTMHQQCQCgR1BpS5gjr66zl2vRU9D/JMv7Jvra2t+cPHEzd4sLa3N+hveEyBNPv4eNYkO0kq4bZm000MhCkjAvRf+agduYis8hKV9RSX+2EPyFt7WFeCgGXDwLjjGjIpBz+8rmKXKuzPoKZLPqWAm9gQem1CKgch35uBtmHsDdPSSBz0PXdFh/fo8PEiBssD6vtWY4z0pWq0wGukdz5B1xZmaMYrMl497klSKDDrZhvNeabudLwH6KxEvMinb3kyXwn/x28AlH4qbK+dAjsX0V5P60iiT7Lmr9I58A8XHlyp4Z9JrRujX5MnN+M9LdHWeydUDZG7QENxGRkFvQk+DU2JVXbSHxNPyGD+t0fLKPcH1PiZD69mzFqqydrsDa3OrAzreCw4stYUxK2RmDzpc=
+  on:
+    repo: julien-hadleyjack/challenge-me
+    brach: master
+    tags: true
+    distributions: sdist bdist_wheel
+
