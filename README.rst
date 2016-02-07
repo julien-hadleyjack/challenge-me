@@ -70,24 +70,26 @@ Overview
 
 .. end-badges
 
-**Note**: This is still an early version which can have unwanted side effects like accidentally deleting a wrong
- file. Use with care.
+**Note**: This is still an early version which can have unwanted side effects like accidentally deleting a wrong file. Use with care.
 
 A command line tool for improving or at least testing your programming knowledge. *challenge-me* gives you
 programming exercises on various topics that you have to solve. It can check to see if your solution is correct and
-then provide you with the next exercise if true. A run could look like this
+then provide you with the next exercise if true. A run could look like this:
 
 .. code:: shell
 
     $ challenge-me start
     Starting first challenge for category array.
+
     $ challenge-me verify
     Verifying challenge 1 for category array.
     Failure.
     Input: 1 2 3 4
     Result:
     Expected: 1 2 0 0
+
     $ # editing file with own solution
+
     $ challenge-me verify string
     Verifying challenge 1 for category string.
     Success.
@@ -108,11 +110,11 @@ Documentation
 =============
 
 The full documentation can be read at `ReadTheDocs <https://challenge-me.readthedocs.org/en/latest/>`_. While using the
-tool you you can also consult the command line help
+tool you you can also consult the command line help:
 
 .. code:: shell
 
-    $challenge-me --help
+    $ challenge-me --help
     Usage: main.py [OPTIONS] COMMAND [ARGS]...
 
     Command line tool for running programming challenges.
