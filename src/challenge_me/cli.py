@@ -17,7 +17,6 @@ Why does this file exist, and why not put this in __main__?
 
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
-import glob
 
 import click
 
@@ -27,12 +26,19 @@ from . import challenge_me, __version__
 @click.group()
 @click.version_option(prog_name="challenge-me", version=__version__)
 def main():
+    """
+    Command line tool for running programming challenges.
+
+    This is still an early version which can have
+    unwanted side effects like accidentally deleting a wrong file. Use with care.
+    """
     pass
 
 
 @main.command()
 @click.argument('category', required=False)
-@click.option('--language', default="python", required=False)
+@click.option('--language', default="python", required=False,
+              help="The programming language that the file should be created in.")
 def start(category, language):
     """
     Starting a challenge.
@@ -42,31 +48,31 @@ def start(category, language):
         category:
     """
 
-    if not category:
-        category, number, filename = challenge_me.get_current_challenge()
+    try:
+        if category:
+            number = challenge_me.current_attempt_in_category(category)
+        else:
+            category, number = challenge_me.current_attempt()
+
         if not category:
             click.echo("Couldn't find a category with open challenges. Stopping.")
             return
-
-        if number != 1:
-            click.echo("File(s) already exist for this category. Skipped creating new one.")
+        elif number != 1:
+            click.echo("The category {} already exists. Skipping creating it.".format(category))
             return
 
-    challenge = challenge_me.get_challenge_with_test(category, 1)
-    if challenge is None:
-        click.echo("Couldn't find a challenge to use. Stopping.")
-        return
+        # TODO: choose first challenge with tests
+        challenge = challenge_me.get_challenge(category, number)
 
-    click.echo('Starting first challenge for category {}.'.format(category))
-    try:
-        challenge_me.create_file(challenge, language)
+        click.echo('Starting first challenge for category {}.'.format(category))
+        challenge_me.create_attempt(challenge, language)
     except ValueError as e:
         click.echo(str(e) + " Stopping.")
 
 
 @main.command()
 @click.argument('category', required=False)
-@click.argument('number', required=False)
+@click.argument('number', type=int, required=False)
 @click.option('--language', default="python", required=False)
 def verify(category, number, language):
     """
@@ -77,41 +83,43 @@ def verify(category, number, language):
         number:
         category:
     """
+    try:
+        current_category = category
+        if category and not number:
+            number = challenge_me.current_attempt_in_category(category)
+        elif not category and not number:
+            current_category, number = challenge_me.current_attempt()
 
-    if not category or not number:
-        new_category, new_number, _ = challenge_me.get_current_challenge()
+        if category and category != current_category:
+            click.echo("Already verified all attempts in this category. Stopping")
+            return
+        elif current_category is None:
+            click.echo("Couldn't find a category with open challenges. Stopping.")
+            return
 
-        if not category:
-            category = new_category
+        challenge = challenge_me.get_challenge(current_category, number)
+        attempts = challenge_me.get_attempts(current_category, number)
 
-        if not number:
-            number = new_number
+        click.echo('Verifying challenge {1} for category {0}.'.format(current_category, number))
+        # TODO: check all attempts
+        success, input_text, output_text, command = challenge_me.verify(challenge, attempts[0])
 
-    search = glob.glob(category + "/*{:03d}*.py".format(number))
-    if not search:
-        click.echo("Couldn't find file to verify")
-        return 1, None
-    else:
-        filename = search[0]
+        if success:
+            click.secho("Success.", fg='green')
+            click.echo("Creating file for next challenge.")
+            new_challenge = challenge_me.get_challenge_with_test(category, number + 1)
+            challenge_me.create_attempt(new_challenge, language)
+        else:
+            click.secho('Failure.', fg='red')
+            click.echo('Input: {}'.format(input_text))
+            click.echo('Result: {}'.format(command.stdout.text.strip()))
+            click.echo('Expected: {}'.format(output_text.strip()))
 
-    challenge = challenge_me.get_challenge(category, number)
+            if command.stderr:
+                click.echo('Error: {}'.format(command.stderr.text))
 
-    click.echo('Verifying challenge {} for category {}.'.format(number, category))
-    success, input_text, output_text, command = challenge_me.verify(challenge, filename)
-    if success:
-        click.secho("Success.", fg='green')
-        click.echo("Creating file for next challenge.")
-        new_challenge = challenge_me.get_challenge_with_test(category, number + 1)
-        challenge_me.create_file(new_challenge, language)
-
-    else:
-        click.secho('Failure.', fg='red')
-        click.echo('Input: {}'.format(input_text))
-        click.echo('Result: {}'.format(command.stdout.text.strip()))
-        click.echo('Expected: {}'.format(output_text.strip()))
-
-    if command.stderr.text:
-        click.echo('Error: {}'.format(command.stderr.text))
+    except ValueError as e:
+        click.echo(str(e) + " Stopping.")
 
 
 @main.command()
@@ -125,23 +133,14 @@ def skip(category, language):
         language:
         category:
     """
-    click.echo('Skipping a challenge.')
+    if category:
+        number = challenge_me.current_attempt_in_category(category)
+    else:
+        category, number = challenge_me.current_attempt()
 
-    if not category:
-        category, number = challenge_me.get_current_challenge()
-        click.echo('Problem {} in category {} was selected.'.format(number, category))
-
-    number, filename = challenge_me.get_current_attempt_in_category(category)
+    click.echo('Skipping challenge {1} in category {0}.'.format(category, number))
     new_challenge = challenge_me.get_challenge_with_test(category, number + 1)
-    challenge_me.create_file(new_challenge, language)
-
-
-@main.command()
-def test():
-    """
-    Testing functionality
-    """
-    click.echo('Testing.')
+    challenge_me.create_attempt(new_challenge, language)
 
 
 if __name__ == "__main__":

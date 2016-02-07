@@ -13,6 +13,5 @@ Why does this file exist, and why __main__? For more info, read:
 """
 from challenge_me.cli import main
 
-
 if __name__ == "__main__":
     main()

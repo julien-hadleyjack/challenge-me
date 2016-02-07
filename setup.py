@@ -61,7 +61,7 @@ setup(
         'Topic :: Utilities',
     ],
     keywords=[
-        # eg: 'keyword1', 'keyword2', 'keyword3',
+        "euler", "learning", "exercises"
     ],
     install_requires=[
         'click',

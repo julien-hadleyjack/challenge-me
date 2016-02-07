@@ -13,8 +13,7 @@ Overview
       - | |travis| |appveyor| |requires|
         | |codecov|
         | |scrutinizer| |codacy| |codeclimate|
-
-..  * - package
+    * - package
       - |version| |downloads| |wheel| |versions| |implementations|
 
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat
@@ -72,8 +71,8 @@ Overview
 
 .. end-badges
 
-A command line tool for running programming challenges. The current version is unstable and should only be used for
-testing purposes
+A command line tool for running programming challenges. This is still an early version which can have unwanted side
+effects like accidentally deleting a wrong file. Use with care.
 
 Installation
 ============
@@ -85,7 +84,7 @@ Installation
 Documentation
 =============
 
-https://challenge-me.readthedocs.org/
+https://challenge-me.readthedocs.org/en/latest/
 
 Development
 ===========
