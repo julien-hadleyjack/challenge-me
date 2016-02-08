@@ -88,10 +88,10 @@ then provide you with the next exercise if true. A run could look like this:
     Result:
     Expected: 1 2 0 0
 
-    $ # editing file with own solution
+    $ # edit file to solve challenge
 
-    $ challenge-me verify string
-    Verifying challenge 1 for category string.
+    $ challenge-me verify
+    Verifying challenge 1 for category array.
     Success.
     Creating file for next challenge.
 
